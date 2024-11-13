@@ -1,4 +1,3 @@
-//5th java lab program
 import java.util.Scanner;
 class Account {
 	String custName;
