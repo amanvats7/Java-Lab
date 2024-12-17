@@ -1,0 +1,113 @@
+//Student.java
+package cie;
+
+public class Student {
+    public String usn;
+    public String name;
+    public int sem;
+
+    public Student(String usn, String name, int sem) {
+        this.usn = usn;
+        this.name = name;
+        this.sem = sem;
+    }
+
+    public void displayStudentInfo() {
+        System.out.println("USN: " + usn);
+        System.out.println("Name: " + name);
+        System.out.println("Semester: " + sem);
+    }
+}
+//Internals.java
+package cie;
+
+public class Internals extends Student {
+    public int[] internalMarks = new int[5];
+
+    public Internals(String usn, String name, int sem, int[] internalMarks) {
+        super(usn, name, sem);
+        this.internalMarks = internalMarks;
+    }
+
+    public void displayInternalMarks() {
+        System.out.println("Internal Marks: ");
+        for (int mark : internalMarks) {
+            System.out.print(mark + " ");
+        }
+        System.out.println();
+    }
+}
+//Externals.java
+package see;
+
+import cie.Student;
+
+public class External extends Student {
+    public int[] externalMarks = new int[5];
+
+    public External(String usn, String name, int sem, int[] externalMarks) {
+        super(usn, name, sem);
+        this.externalMarks = externalMarks;
+    }
+
+    public void displayExternalMarks() {
+        System.out.println("External Marks: ");
+        for (int mark : externalMarks) {
+            System.out.print(mark + " ");
+        }
+        System.out.println();
+    }
+}
+//Main.java
+import cie.Internals;
+import see.External;
+
+public class Main {
+    public static void main(String[] args) {
+        
+        int n = 2;  
+
+        int[] internalMarks1 = {20, 30, 25, 28, 22};
+        int[] externalMarks1 = {60, 70, 55, 65, 50};
+        Internals student1Internal = new Internals("USN123", "Alice", 3, internalMarks1);
+        External student1External = new External("USN123", "Alice", 3, externalMarks1);
+
+        int[] internalMarks2 = {18, 25, 20, 23, 28};
+        int[] externalMarks2 = {50, 65, 60, 58, 45};
+        Internals student2Internal = new Internals("USN124", "Bob", 3, internalMarks2);
+        External student2External = new External("USN124", "Bob", 3, externalMarks2);
+
+        System.out.println("Student 1 Info: ");
+        student1Internal.displayStudentInfo();
+        student1Internal.displayInternalMarks();
+        student1External.displayExternalMarks();
+
+        int[] finalMarks1 = calculateFinalMarks(student1Internal.internalMarks, student1External.externalMarks);
+        displayFinalMarks(finalMarks1);
+
+        System.out.println("\nStudent 2 Info: ");
+        student2Internal.displayStudentInfo();
+        student2Internal.displayInternalMarks();
+        student2External.displayExternalMarks();
+
+        int[] finalMarks2 = calculateFinalMarks(student2Internal.internalMarks, student2External.externalMarks);
+        displayFinalMarks(finalMarks2);
+    }
+
+    public static int[] calculateFinalMarks(int[] internalMarks, int[] externalMarks) {
+        int[] finalMarks = new int[5];
+        for (int i = 0; i < 5; i++) {
+            finalMarks[i] = internalMarks[i] + externalMarks[i];
+        }
+        return finalMarks;
+    }
+
+
+    public static void displayFinalMarks(int[] finalMarks) {
+        System.out.println("Final Marks (Internal + External): ");
+        for (int mark : finalMarks) {
+            System.out.print(mark + " ");
+        }
+        System.out.println();
+    }
+}
